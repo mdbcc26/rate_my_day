@@ -32,14 +32,6 @@ class RateMyDayViewModel(private val repository: RateDayRepository) : ViewModel(
             repository.saveRatedDay(rateDay)
         }
     }
-/*
-    fun deleteRatedDay(rateDay: LocalDate) {
-        viewModelScope.launch {
-            repository.deleteRatedDay(rateDay)
-            fetchRatedDays()
-        }
-    }
- */
 
     fun deleteRatedDayByDate(date: Long) {
         viewModelScope.launch {
