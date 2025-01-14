@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -168,8 +167,7 @@ fun RateDayFormScreen(
     navController: NavController
 ) {
     var stars by remember { mutableIntStateOf(initialStars) }
-    var selectedDate by remember { mutableStateOf(initialDate) }
-    val context = LocalContext.current
+    val selectedDate by remember { mutableStateOf(initialDate) }
 
     val currentDate = LocalDate.now()
     var errorMessage by remember { mutableStateOf("") }
@@ -189,32 +187,13 @@ fun RateDayFormScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
         ) {
-            Text("Click below to choose date!")
-            Button(onClick = {
-                val datePickerDialog = android.app.DatePickerDialog(
-                        context,
-                        { _, year, month, dayOfMonth ->
-                            val pickedDate = LocalDate.of(year, month + 1, dayOfMonth)
-                            if (pickedDate.isAfter(currentDate)) {
-                                errorMessage = "You cannot select a future date."
-                            } else {
-                                selectedDate = pickedDate
-                                errorMessage = "" //Clear error message if valid
-                            }
-                        },
-                        selectedDate.year,
-                        selectedDate.monthValue - 1,
-                        selectedDate.dayOfMonth
-                    )
-                    datePickerDialog.show()
-                }
-            )
-            { Text(
+            Text(
                 selectedDate.format(dateFormatter)
-                )
-            }
+            )
 
-           //5 point range slider of Stars
+            RatingLegend()
+
+            //5 point range slider of Stars
             Text("Rating: $stars Stars")
             StarRating(
                 rating = stars,
