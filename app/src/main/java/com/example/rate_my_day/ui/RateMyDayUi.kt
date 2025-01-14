@@ -32,7 +32,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.utils.toEpochMillis
-import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.data.RateDayRepository
 import com.example.rate_my_day.data.db.RateDaysDatabase
 import com.kizitonwose.calendar.compose.HorizontalCalendar
@@ -261,7 +260,7 @@ fun RateDayFormScreen(
 }
 
 @Composable
-fun ThemeScreen(viewModel: CalendarViewModel, navController: NavController, preferences : Preferences) {
+fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, preferences : Preferences) {
 
     val key = remember { mutableStateOf("") }
 
