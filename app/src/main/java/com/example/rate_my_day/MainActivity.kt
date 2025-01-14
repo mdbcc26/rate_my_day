@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.rate_my_day.data.RateDayRepository
 import com.example.rate_my_day.data.db.RateDaysDatabase
-import com.example.rate_my_day.ui.CalendarViewModel
+import com.example.rate_my_day.ui.RateMyDayViewModel
 import com.example.rate_my_day.ui.RateMyDayApp
 import com.example.rate_my_day.ui.theme.RateMyDayTheme
 
@@ -19,7 +19,8 @@ class MainActivity : ComponentActivity() {
 
         val database = RateDaysDatabase.getDatabase(this)
         val repository = RateDayRepository(database.RateDaysDao())
-        val viewModel = CalendarViewModel(repository)
+        val viewModel = RateMyDayViewModel(repository)
+        //var viewModel = ViewModelFactoryProvider(this).get(RateMyDayViewModel::class.java)
 
         enableEdgeToEdge()
         setContent {

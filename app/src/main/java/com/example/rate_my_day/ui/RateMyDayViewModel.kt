@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
-class CalendarViewModel(private val repository: RateDayRepository) : ViewModel() {
+class RateMyDayViewModel(private val repository: RateDayRepository) : ViewModel() {
 
     private val _ratedDays = MutableStateFlow<List<RateDayEntity>>(emptyList())
     val ratedDays: StateFlow<List<RateDayEntity>> = _ratedDays.asStateFlow()
