@@ -8,23 +8,37 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat.recreate
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.utils.toEpochMillis
+import com.example.rate_my_day.data.Preferences
+import com.example.rate_my_day.data.RateDayRepository
+import com.example.rate_my_day.data.db.RateDaysDatabase
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
+import kotlinx.coroutines.flow.Flow
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -33,11 +47,17 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
 
-enum class Screens { View, Rate }
+
+enum class Screens { View, Rate, Theme }
+
+val themes = List(100) { "Option ${it + 1}" }
+
+
 
 @Composable
 fun RateMyDayApp(
-    viewModel: RateMyDayViewModel
+    viewModel: RateMyDayViewModel,
+    preferences: Preferences
 ) {
     val navController = rememberNavController()
     val backgroundColor = Color(0xFFE9D6B8)
@@ -65,6 +85,9 @@ fun RateMyDayApp(
                     navController = navController
                 )
             }
+            composable(Screens.Theme.name) {
+                ThemeScreen(viewModel, navController, preferences = preferences)
+            }
             composable("${Screens.Rate.name}/{date}/{stars}") { backStackEntry ->
                 val date = backStackEntry.arguments?.getString("date")?.let { LocalDate.parse(it) } ?: LocalDate.now()
                 val stars = backStackEntry.arguments?.getString("stars")?.toIntOrNull() ?: 0
@@ -79,6 +102,7 @@ fun RateMyDayApp(
         }
     }
 }
+
 
 @Composable
 fun CalendarScreen(
@@ -234,4 +258,44 @@ fun RateDayFormScreen(
             }
         }
     }
+}
+
+@Composable
+fun ThemeScreen(viewModel: CalendarViewModel, navController: NavController, preferences : Preferences) {
+
+    val key = remember { mutableStateOf("") }
+
+    val value = remember { mutableStateOf("") }
+
+    val storedInfo = remember { mutableStateOf("") }
+
+    var itemPosition by rememberSaveable() {
+        mutableIntStateOf(0)
+    }
+    var expanded by remember { mutableStateOf(false) }
+
+    val menuItemData = themes
+
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        Button(onClick = { expanded = !expanded }) {
+            Text(key.value)
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            menuItemData.forEachIndexed { index, option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+
+                    }
+                )
+            }
+        }
+    }
+
 }
