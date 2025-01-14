@@ -71,6 +71,10 @@ dependencies {
     implementation(libs.material)
     ksp(libs.androidx.room.compiler)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.rxjava2)
+    implementation(libs.androidx.datastore.rxjava3)
+
     implementation("com.google.accompanist:accompanist-flowlayout:0.36.0") //FlowRow dependency
 
     implementation(libs.androidx.core.ktx)
