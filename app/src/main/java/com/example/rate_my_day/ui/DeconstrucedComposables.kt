@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -119,6 +118,8 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
+    val isToday = day.date == LocalDate.now()
+
     //Determine the color based on the rating
     val ratingColor = when (stars) {
         5 -> Color(0xFFF35B04) //Persimmon
@@ -135,6 +136,15 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
         .clickable(onClick = onDayClick), // Handle day click
         contentAlignment = Alignment.Center
     ) {
+        //Add a circle for today's date
+        if (isToday) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(color = Color(0xFFB3E5FC), shape = CircleShape)
+            )
+        }
+
         //show the coloured circle if the date has a rating
         if (stars > 0) {
             Box (
@@ -147,7 +157,12 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
         Text(
             text = day.date.dayOfMonth.toString(),
             fontSize = 16.sp,
-            color = if (stars >0) Color.White else Color.Black //Adjust text color for visibility
+            color = if (stars > 0) Color.White else Color.Black //Adjust text color for visibility
+            /*color = when {
+                isToday -> Color.Black
+                stars > 0 -> Color.White
+                else -> Color.Black
+            }*/
         )
 
     }

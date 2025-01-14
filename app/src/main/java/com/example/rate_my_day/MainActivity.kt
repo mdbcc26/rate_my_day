@@ -1,6 +1,5 @@
 package com.example.rate_my_day
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,8 +10,6 @@ import com.example.rate_my_day.data.db.RateDaysDatabase
 import com.example.rate_my_day.ui.RateMyDayViewModel
 import com.example.rate_my_day.ui.RateMyDayApp
 import com.example.rate_my_day.ui.theme.RateMyDayTheme
-import kotlinx.coroutines.flow.Flow
-
 
 class MainActivity : ComponentActivity() {
 
