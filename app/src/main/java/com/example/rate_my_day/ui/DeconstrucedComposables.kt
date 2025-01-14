@@ -44,6 +44,7 @@ import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -166,12 +167,14 @@ fun DayOptionsDialog(
     onEditOrAdd: () -> Unit,
     onDelete: () -> Unit
 ) {
+    val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = "Day Options") },
+        title = { Text(text = "Rating") },
         text = {
             Column {
-                Text(text = "Date: $selectedDay")
+                Text(text = selectedDay.format(dateFormatter))
                 Spacer(modifier = Modifier.height(8.dp))
                 if (selectedRateDay != null) {
                     Text(text = "This day has a rating of ${selectedRateDay.stars} stars.")
@@ -180,19 +183,28 @@ fun DayOptionsDialog(
                 }
             }
         },
+
         confirmButton = {
             Button(onClick = onEditOrAdd) {
-                Text(text = if (selectedRateDay != null) "Edit Rating" else "Add Rating")
+                Text(text = if (selectedRateDay != null) "Edit" else "Add")
             }
         },
         dismissButton = if (selectedRateDay != null) {
             {
                 Button(onClick = onDelete) {
-                    Text(text = "Delete Rating")
+                    Text(text = "Delete")
                 }
             }
         } else null
     )
+}
+
+@Composable
+fun ViewStars(
+    rating: Int,
+    modifier: Modifier
+) {
+
 }
 
 /**
@@ -220,11 +232,11 @@ Text("Date: ${rateDay.date} | Stars: ${rateDay.stars}")
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RatingLegend() {
-    FlowRow (
+    Column (
         Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        //horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         RatingLegendItem(color = Color(0xFF3D348B), description = "1 Star - Very Bad")
