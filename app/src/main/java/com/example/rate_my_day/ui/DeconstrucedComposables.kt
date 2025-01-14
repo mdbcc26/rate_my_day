@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.AlertDialog
@@ -106,6 +107,12 @@ fun BottomNavigationBar(navController: NavController) {
             },
             icon = { Icon(imageVector = Icons.Filled.Star, contentDescription = "Star") },
             label = { Text("Rate")}
+        )
+        NavigationBarItem(
+            selected = currentRoute == Screens.Theme.name,
+            onClick = { navController.navigate(Screens.Theme.name) },
+            icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = "Theme") },
+            label = { Text("Theme")}
         )
     }
 }
