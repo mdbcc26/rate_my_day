@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
         val database = RateDaysDatabase.getDatabase(this)
         val repository = RateDayRepository(database.RateDaysDao())
         val viewModel = RateMyDayViewModel(repository)
-        //var viewModel = ViewModelFactoryProvider(this).get(RateMyDayViewModel::class.java)
 
         enableEdgeToEdge()
         setContent {
