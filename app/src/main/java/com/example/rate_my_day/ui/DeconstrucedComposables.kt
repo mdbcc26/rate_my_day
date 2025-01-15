@@ -214,6 +214,10 @@ fun DayOptionsDialog(
                     Text(text = "Future days can't be rated.", color = Color.Red)
                 } else if (selectedRateDay != null) {
                     Text(text = "This day has a rating of ${selectedRateDay.stars} stars.")
+                    selectedRateDay.comment?.let { comment ->
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(text = comment)
+                    }
                 } else {
                     Text(text = "This day has not been rated yet.")
                 }
