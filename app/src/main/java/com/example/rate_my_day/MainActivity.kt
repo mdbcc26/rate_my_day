@@ -21,14 +21,13 @@ class MainActivity : ComponentActivity() {
         val database = RateDaysDatabase.getDatabase(this)
         val repository = RateDayRepository(database.RateDaysDao())
         val viewModel = RateMyDayViewModel(repository)
-
         val preferences by lazy {
             com.example.rate_my_day.data.Preferences(this)
         }
 
         enableEdgeToEdge()
         setContent {
-            RateMyDayTheme {
+            RateMyDayTheme(preferences) {
                     RateMyDayApp(viewModel = viewModel, preferences)
             }
         }

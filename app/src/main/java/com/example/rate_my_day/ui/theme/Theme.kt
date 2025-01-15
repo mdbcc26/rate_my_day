@@ -9,7 +9,13 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
+import com.example.rate_my_day.data.Preferences
+
+
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -36,11 +42,12 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun RateMyDayTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    preferences: Preferences,
     // Dynamic color is available on Android 12+
     //dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+
     /*val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -50,10 +57,12 @@ fun RateMyDayTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }*/
-    val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        dynamicLightColorScheme(LocalContext.current)
-    } else {
-        LightColorScheme
+    val theme by preferences.getString.collectAsState("")
+
+    val colorScheme = when (theme) {
+        "Dark Mode" -> DarkColorScheme
+        "Default" -> LightColorScheme
+        else -> {LightColorScheme}
     }
     MaterialTheme(
         colorScheme = colorScheme,

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.datastore.dataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -44,7 +45,7 @@ import java.util.*
 
 enum class Screens { View, Rate, Theme }
 
-val themes = List(100) { "Option ${it + 1}" }
+val themes = listOf("Default", "Dark Mode")
 
 
 
@@ -323,7 +324,7 @@ fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, pre
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            menuItemData.forEachIndexed { index, option ->
+            menuItemData.forEachIndexed { _, option ->
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {

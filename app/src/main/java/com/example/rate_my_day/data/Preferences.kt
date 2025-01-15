@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.map
 
 
 class Preferences(private val context : Context) {
-companion object {
+
     private val Context.dataStore by preferencesDataStore(name = "settings")
-    val CURRENT_THEME = stringPreferencesKey("current_theme")
-}
+    private val CURRENT_THEME = stringPreferencesKey("current_theme")
+
     val getString: Flow<String> = context.dataStore.data.map { preferences ->
-            preferences[CURRENT_THEME] ?: "default"
-        }
+        preferences[CURRENT_THEME] ?: "default"
+    }
 
     suspend fun saveString(value: String): Preferences {
         return context.dataStore.edit { preferences ->
