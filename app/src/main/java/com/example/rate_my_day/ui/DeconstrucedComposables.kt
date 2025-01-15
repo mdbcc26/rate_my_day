@@ -190,6 +190,7 @@ fun DayOptionsDialog(
     onDelete: () -> Unit
 ) {
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+    val isFutureDay = selectedDay.isAfter(LocalDate.now())
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -198,7 +199,9 @@ fun DayOptionsDialog(
             Column {
                 Text(text = selectedDay.format(dateFormatter))
                 Spacer(modifier = Modifier.height(8.dp))
-                if (selectedRateDay != null) {
+                if (isFutureDay) {
+                    Text(text = "Future days can't be rated.", color = Color.Red)
+                } else if (selectedRateDay != null) {
                     Text(text = "This day has a rating of ${selectedRateDay.stars} stars.")
                 } else {
                     Text(text = "This day has not been rated yet.")
@@ -207,8 +210,10 @@ fun DayOptionsDialog(
         },
 
         confirmButton = {
-            Button(onClick = onEditOrAdd) {
-                Text(text = if (selectedRateDay != null) "Edit" else "Add")
+            if (!isFutureDay) {
+                Button(onClick = onEditOrAdd) {
+                    Text(text = if (selectedRateDay != null) "Edit" else "Add")
+                }
             }
         },
         dismissButton = if (selectedRateDay != null) {
