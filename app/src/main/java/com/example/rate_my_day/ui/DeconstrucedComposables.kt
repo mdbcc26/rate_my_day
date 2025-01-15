@@ -119,6 +119,7 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
     val isToday = day.date == LocalDate.now()
+    val isFutureDay = day.date.isAfter(LocalDate.now())
 
     //Determine the color based on the rating
     val ratingColor = when (stars) {
@@ -145,7 +146,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
             )
         }
 
-        //show the coloured circle if the date has a rating
+        //Show the coloured circle if the date has a rating
         if (stars > 0) {
             Box (
                 modifier = Modifier
@@ -154,17 +155,16 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
                 contentAlignment = Alignment.Center
             ) {}
         }
+
         Text(
             text = day.date.dayOfMonth.toString(),
             fontSize = 16.sp,
-            color = if (stars > 0) Color.White else Color.Black //Adjust text color for visibility
-            /*color = when {
-                isToday -> Color.Black
+            color = when {
+                isFutureDay -> Color.Gray
                 stars > 0 -> Color.White
                 else -> Color.Black
-            }*/
+            }
         )
-
     }
 }
 
@@ -190,6 +190,7 @@ fun DayOptionsDialog(
     onDelete: () -> Unit
 ) {
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+    val isFutureDay = selectedDay.isAfter(LocalDate.now())
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -198,7 +199,9 @@ fun DayOptionsDialog(
             Column {
                 Text(text = selectedDay.format(dateFormatter))
                 Spacer(modifier = Modifier.height(8.dp))
-                if (selectedRateDay != null) {
+                if (isFutureDay) {
+                    Text(text = "Future days can't be rated.", color = Color.Red)
+                } else if (selectedRateDay != null) {
                     Text(text = "This day has a rating of ${selectedRateDay.stars} stars.")
                 } else {
                     Text(text = "This day has not been rated yet.")
@@ -207,8 +210,10 @@ fun DayOptionsDialog(
         },
 
         confirmButton = {
-            Button(onClick = onEditOrAdd) {
-                Text(text = if (selectedRateDay != null) "Edit" else "Add")
+            if (!isFutureDay) {
+                Button(onClick = onEditOrAdd) {
+                    Text(text = if (selectedRateDay != null) "Edit" else "Add")
+                }
             }
         },
         dismissButton = if (selectedRateDay != null) {
