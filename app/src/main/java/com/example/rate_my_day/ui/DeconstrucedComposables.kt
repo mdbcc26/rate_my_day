@@ -31,6 +31,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 //import androidx.compose.runtime.collectAsState
 //import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -48,6 +50,7 @@ import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
@@ -90,8 +93,9 @@ fun RateMyDayHeader() {
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewModel) {
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+    val ratedDays by viewModel.ratedDays.collectAsState(emptyList())
 
     NavigationBar {
         NavigationBarItem(
@@ -103,7 +107,15 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationBarItem(
             selected = currentRoute?.startsWith(Screens.Rate.name) == true,
             onClick = {
-                navController.navigate(Screens.Rate.name) {
+                val today = LocalDate.now()
+                val todayInMillis = today.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000
+                val todayRateDay = ratedDays.firstOrNull { it.date == todayInMillis}
+
+                val dateArgument = today.toString()
+                val starsArgument = todayRateDay?.stars ?: 0
+                val commentArgument = todayRateDay?.comment ?: ""
+
+                navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument/$commentArgument") {
                     popUpTo(Screens.View.name) { inclusive = false }
                     launchSingleTop = true
                 }

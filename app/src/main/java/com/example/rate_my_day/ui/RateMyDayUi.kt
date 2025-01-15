@@ -60,7 +60,7 @@ fun RateMyDayApp(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor),
-        bottomBar = { BottomNavigationBar(navController) }
+        bottomBar = { BottomNavigationBar(navController, viewModel) }
     ) {
         innerPadding ->
         NavHost(
