@@ -28,4 +28,7 @@ interface RateDaysDao {
 
     @Query("SELECT * FROM RatedDays WHERE date = :date")
     suspend fun getRateDayByDate(date: Long): RateDayEntity?
+
+    @Query("UPDATE RatedDays SET comment = :comment WHERE date = :date")
+    suspend fun updateCommentByDate(date: Long, comment: String)
 }

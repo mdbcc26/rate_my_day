@@ -14,6 +14,10 @@ class RateDayRepository(private val rateDaysDao: RateDaysDao) {
     suspend fun deleteRatedDayByDate(date:Long) {
         rateDaysDao.deleteRateDayByDate(date)
     }
+
+    suspend fun updateComment(date: Long, comment: String) {
+        rateDaysDao.updateCommentByDate(date, comment)
+    }
 /**
     suspend fun getRateDayByDate(date: Long): RateDayEntity? {
         return rateDaysDao.getRateDayByDate(date)

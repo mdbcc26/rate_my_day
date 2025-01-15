@@ -41,4 +41,9 @@ class RateMyDayViewModel(private val repository: RateDayRepository) : ViewModel(
         }
     }
 
+    fun updateComment(date: Long, comment: String) {
+        viewModelScope.launch {
+            repository.updateComment(date, comment)
+        }
+    }
 }

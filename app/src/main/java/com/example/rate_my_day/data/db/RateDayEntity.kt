@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class RateDayEntity(
     @PrimaryKey
     val date: Long,
-    val stars: Int
+    val stars: Int,
+    val comment: String? = null
 )
