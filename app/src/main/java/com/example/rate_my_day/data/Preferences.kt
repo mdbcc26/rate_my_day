@@ -11,20 +11,18 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 
-class Preferences(val context : Context) {
-
+class Preferences(private val context : Context) {
+companion object {
     private val Context.dataStore by preferencesDataStore(name = "settings")
-
-    suspend fun saveString(key: String, value: String) {
-        context.dataStore.edit {
-            it[stringPreferencesKey(key)] = value
+    val CURRENT_THEME = stringPreferencesKey("current_theme")
+}
+    val getString: Flow<String> = context.dataStore.data.map { preferences ->
+            preferences[CURRENT_THEME] ?: "default"
         }
-    }
 
-    suspend fun getString(key: String):String? {
-        return context.dataStore.data.map {
-            it[stringPreferencesKey(key)]}.first()
-
+    suspend fun saveString(value: String): Preferences {
+        return context.dataStore.edit { preferences ->
+            preferences[CURRENT_THEME] = value}
     }
 
 

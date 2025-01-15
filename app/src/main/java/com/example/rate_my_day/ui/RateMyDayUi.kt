@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.dataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,6 +30,7 @@ import com.example.rate_my_day.utils.toEpochMillis
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -253,15 +255,11 @@ fun RateDayFormScreen(
 @Composable
 fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, preferences : Preferences) {
 
-    val key = remember { mutableStateOf("") }
 
-    val value = remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val value by preferences.getString.collectAsState("")
 
-    val storedInfo = remember { mutableStateOf("") }
 
-    var itemPosition by rememberSaveable() {
-        mutableIntStateOf(0)
-    }
     var expanded by remember { mutableStateOf(false) }
 
     val menuItemData = themes
@@ -271,7 +269,7 @@ fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, pre
             .padding(16.dp)
     ) {
         Button(onClick = { expanded = !expanded }) {
-            Text(key.value)
+            Text(text = value)
         }
         DropdownMenu(
             expanded = expanded,
@@ -281,7 +279,10 @@ fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, pre
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
-
+                        scope.launch {
+                            preferences.saveString(option)
+                        }
+                        expanded = false
                     }
                 )
             }
@@ -289,3 +290,4 @@ fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, pre
     }
 
 }
+

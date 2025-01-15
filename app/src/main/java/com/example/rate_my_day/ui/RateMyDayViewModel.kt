@@ -2,6 +2,7 @@ package com.example.rate_my_day.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.data.RateDayRepository
 import com.example.rate_my_day.data.db.RateDayEntity
 import kotlinx.coroutines.flow.MutableStateFlow
