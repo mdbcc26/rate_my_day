@@ -118,12 +118,6 @@ fun BottomNavigationBar(navController: NavController) {
             icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = "Theme") },
             label = { Text("Theme")}
         )
-        NavigationBarItem(
-            selected = currentRoute == Screens.TEST.name,
-            onClick = { navController.navigate(Screens.TEST.name) },
-            icon = { Icon(imageVector = Icons.Filled.Build, contentDescription = "Theme") },
-            label = { Text("DEV TEST")}
-        )
     }
 }
 
