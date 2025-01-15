@@ -56,6 +56,22 @@ fun RateMyDayApp(
     val navController = rememberNavController()
     val backgroundColor = Color(0xFFE9D6B8)
 
+
+    // Collect ratedDays in a @Composable context
+    val ratedDays by viewModel.ratedDays.collectAsState(emptyList())
+
+    // Determine the initial route based on today's data
+    val today = LocalDate.now()
+    val todayInMillis = today.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000
+    val todayRateDay = ratedDays.firstOrNull { it.date == todayInMillis }
+
+    // Build the start destination dynamically
+    val startDestination = if (todayRateDay != null) {
+        "${Screens.Rate.name}/${today.toString()}/${todayRateDay.stars}/${todayRateDay.comment ?: ""}"
+    } else {
+        Screens.Rate.name
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +81,7 @@ fun RateMyDayApp(
         innerPadding ->
         NavHost(
             navController,
-            startDestination = Screens.Rate.name,
+            startDestination = startDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.View.name) {
