@@ -119,6 +119,7 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
     val isToday = day.date == LocalDate.now()
+    val isFutureDay = day.date.isAfter(LocalDate.now())
 
     //Determine the color based on the rating
     val ratingColor = when (stars) {
@@ -145,7 +146,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
             )
         }
 
-        //show the coloured circle if the date has a rating
+        //Show the coloured circle if the date has a rating
         if (stars > 0) {
             Box (
                 modifier = Modifier
@@ -154,17 +155,16 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
                 contentAlignment = Alignment.Center
             ) {}
         }
+
         Text(
             text = day.date.dayOfMonth.toString(),
             fontSize = 16.sp,
-            color = if (stars > 0) Color.White else Color.Black //Adjust text color for visibility
-            /*color = when {
-                isToday -> Color.Black
+            color = when {
+                isFutureDay -> Color.Gray
                 stars > 0 -> Color.White
                 else -> Color.Black
-            }*/
+            }
         )
-
     }
 }
 
