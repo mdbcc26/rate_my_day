@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -190,6 +191,9 @@ fun RateDayFormScreen(
 
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
 
+    var comment by remember { mutableStateOf("") }
+    val maxCommentLength = 100
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -216,6 +220,24 @@ fun RateDayFormScreen(
                 onRatingChange = { stars = it}
             )
 
+            // Comment Input Field
+            OutlinedTextField(
+                value = comment,
+                onValueChange = {
+                    if(it.length <= maxCommentLength) comment = it
+                },
+                label = { Text("Comment") },
+                placeholder = { Text("How was your day?") },
+                modifier = Modifier.fillMaxWidth(),
+                maxLines = 3
+            )
+            // Max character tracker
+            Text(
+                text = "${comment.length} / $maxCommentLength",
+                style = MaterialTheme.typography.bodySmall,
+                color = if (comment.length == maxCommentLength) Color.Red else Color.Gray
+            )
+
             // Save Button
             Button(
                 onClick = {
@@ -229,7 +251,11 @@ fun RateDayFormScreen(
                         else -> {
                             val dateInMillis = selectedDate.atStartOfDay()
                                 .toEpochSecond(ZoneOffset.UTC) * 1000 // Convert LocalDate to milliseconds
-                            val rateDayEntity = RateDayEntity(date = dateInMillis, stars = stars)
+                            val rateDayEntity = RateDayEntity(
+                                date = dateInMillis,
+                                stars = stars,
+                                comment = comment.takeIf { it.isNotBlank() }
+                            )
                             viewModel.saveRatedDay(rateDayEntity)
                             navController.navigate(Screens.View.name) // Redirect to 'View' screen after saving rating
                             errorMessage = "" // Clear error message on successful save
