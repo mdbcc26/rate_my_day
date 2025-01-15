@@ -32,6 +32,7 @@ import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
 import kotlinx.coroutines.launch
+import org.w3c.dom.Comment
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -75,22 +76,25 @@ fun RateMyDayApp(
                     viewModel = viewModel,
                     initialDate = LocalDate.now(),
                     initialStars = 0,
+                    initialComment = "",
                     navController = navController
                 )
             }
-            composable(Screens.Theme.name) {
-                ThemeScreen(viewModel, navController, preferences = preferences)
-            }
-            composable("${Screens.Rate.name}/{date}/{stars}") { backStackEntry ->
+            composable("${Screens.Rate.name}/{date}/{stars}/{comment}") { backStackEntry ->
                 val date = backStackEntry.arguments?.getString("date")?.let { LocalDate.parse(it) } ?: LocalDate.now()
                 val stars = backStackEntry.arguments?.getString("stars")?.toIntOrNull() ?: 0
+                val comment = backStackEntry.arguments?.getString("comment") ?: ""
 
                 RateDayFormScreen(
                     viewModel = viewModel,
                     initialDate = date,
                     initialStars = stars,
+                    initialComment = comment,
                     navController = navController
                     )
+            }
+            composable(Screens.Theme.name) {
+                ThemeScreen(viewModel, navController, preferences = preferences)
             }
         }
     }
@@ -162,7 +166,8 @@ fun CalendarScreen(
                     onEditOrAdd = {
                         val dateArgument = selectedDay?.toString() ?: LocalDate.now().toString() // Convert Local Date (selected or not) to String
                         val starsArgument = selectedRateDay?.stars ?: 0
-                        navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument") // Redirect to RateDayFormScreen with date as part of the route
+                        val commentArgument = selectedRateDay?.comment ?: ""
+                        navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument/$commentArgument") // Redirect to RateDayFormScreen with date as part of the route
                         isDialogVisible = false
                     },
                     onDelete = {
@@ -181,18 +186,19 @@ fun RateDayFormScreen(
     viewModel: RateMyDayViewModel,
     initialDate: LocalDate,
     initialStars: Int,
+    initialComment: String,
     navController: NavController
 ) {
     var stars by remember { mutableIntStateOf(initialStars) }
     val selectedDate by remember { mutableStateOf(initialDate) }
+    var comment by remember { mutableStateOf(initialComment) }
+    val maxCommentLength = 100
 
     val currentDate = LocalDate.now()
     var errorMessage by remember { mutableStateOf("") }
 
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
 
-    var comment by remember { mutableStateOf("") }
-    val maxCommentLength = 100
 
     Box(
         modifier = Modifier
