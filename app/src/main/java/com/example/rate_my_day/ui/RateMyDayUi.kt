@@ -288,6 +288,5 @@ fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, pre
             }
         }
     }
-
 }
 
