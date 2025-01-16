@@ -39,13 +39,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.data.db.RateDayEntity
+import com.example.rate_my_day.ui.theme.DarkColorScheme
+import com.example.rate_my_day.ui.theme.LightColorScheme
+import com.example.rate_my_day.ui.theme.star1
+import com.example.rate_my_day.ui.theme.star2
+import com.example.rate_my_day.ui.theme.star3
+import com.example.rate_my_day.ui.theme.star4
+import com.example.rate_my_day.ui.theme.star5
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import java.time.DayOfWeek
@@ -133,17 +142,17 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
 }
 
 @Composable
-fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit) {
+fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Preferences) {
     val isToday = day.date == LocalDate.now()
     val isFutureDay = day.date.isAfter(LocalDate.now())
 
     //Determine the color based on the rating
     val ratingColor = when (stars) {
-        5 -> Color(0xFFF35B04) //Persimmon
-        4 -> Color(0xFFF18701) //Tangerine
-        3 -> Color(0xFFF7B801) //Selective Yellow
-        2 -> Color(0xFF7678ED) //Medium Slate Blue
-        1 -> Color(0xFF3D348B) //Tekhelet
+        5 -> LightColorScheme.star5(preferences = preferences) //Persimmon
+        4 -> LightColorScheme.star4(preferences = preferences) //Tangerine
+        3 -> LightColorScheme.star3(preferences = preferences) //Selective Yellow
+        2 -> LightColorScheme.star2(preferences = preferences) //Medium Slate Blue
+        1 -> LightColorScheme.star1(preferences = preferences) //Tekhelet
         else -> Color.Transparent
     }
 
