@@ -65,7 +65,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun RateMyDayHeader() {
+fun RateMyDayHeader(preferences: Preferences) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -73,8 +73,8 @@ fun RateMyDayHeader() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFF7B801), // Bright gradient start color
-                        Color(0xFFF18701)  // Gradient end color
+                        LightColorScheme.star1(preferences = preferences), // Bright gradient start color
+                        LightColorScheme.star5(preferences = preferences)  // Gradient end color
                     )
                 )
             ),

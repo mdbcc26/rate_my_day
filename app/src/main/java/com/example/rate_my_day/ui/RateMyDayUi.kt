@@ -131,7 +131,7 @@ fun CalendarScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        RateMyDayHeader()
+        RateMyDayHeader(preferences = preferences)
         Row {
             //Shows a calendar. Information is pulled from Room database and assigns a colour to the date relating to the amount of stars
             HorizontalCalendar(
@@ -207,7 +207,7 @@ fun RateDayFormScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        RateMyDayHeader()
+        RateMyDayHeader(preferences = preferences)
         Column(
             modifier = Modifier
                 .fillMaxSize()
