@@ -218,7 +218,7 @@ fun DayOptionsDialog(
                 if (isFutureDay) {
                     Text(text = "Future days can't be rated.", color = Color.Red)
                 } else if (selectedRateDay != null) {
-                    Text(text = "This day has a rating of ${selectedRateDay.stars} stars.")
+                    ViewStars(rating = selectedRateDay.stars, modifier = Modifier.padding(top = 8.dp))
                     selectedRateDay.comment?.let { comment ->
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(text = comment)
@@ -245,14 +245,26 @@ fun DayOptionsDialog(
         } else null
     )
 }
-/*
+
 @Composable
 fun ViewStars(
     rating: Int,
     modifier: Modifier
 ) {
-
-}*/
+    Row(
+        modifier = Modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        repeat(rating) {
+            Icon(
+                imageVector = Icons.Filled.Star,
+                contentDescription = null,
+                tint = Color(0xFFF7B801),
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    }
+}
 
 /** Used for database testing and visibility of RatedDays table.
 @Composable
