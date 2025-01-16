@@ -43,7 +43,7 @@ import java.util.*
 
 enum class Screens { View, Rate, Theme }
 
-val themes = listOf("Default", "Dark Mode")
+val themes = listOf("Default", "Dark Mode", "Green")
 
 
 
