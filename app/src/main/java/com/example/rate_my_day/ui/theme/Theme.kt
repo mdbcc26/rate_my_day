@@ -23,13 +23,11 @@ fun RateMyDayTheme(
 
     content: @Composable () -> Unit
 ) {
+    val mode by preferences.getBoolean.collectAsState(false)
 
-    val theme by preferences.getString.collectAsState("")
-
-    val colorScheme = when (theme) {
-        "Dark Mode" -> DarkColorScheme
-        "Default" -> LightColorScheme
-        else -> {LightColorScheme}
+    val colorScheme = if (mode) {
+        DarkColorScheme } else {
+        LightColorScheme
     }
     MaterialTheme(
         colorScheme = colorScheme,

@@ -12,6 +12,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -46,7 +47,6 @@ enum class Screens { View, Rate, Theme }
 val themes = listOf("Default", "Dark Mode", "Green")
 
 
-
 @Composable
 fun RateMyDayApp(
     viewModel: RateMyDayViewModel,
@@ -58,8 +58,7 @@ fun RateMyDayApp(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = { BottomNavigationBar(navController, viewModel) }
-    ) {
-        innerPadding ->
+    ) { innerPadding ->
         NavHost(
             navController,
             startDestination = Screens.Rate.name, //startDestination,
@@ -79,7 +78,8 @@ fun RateMyDayApp(
                 )
             }
             composable("${Screens.Rate.name}/{date}/{stars}/{comment}") { backStackEntry ->
-                val date = backStackEntry.arguments?.getString("date")?.let { LocalDate.parse(it) } ?: LocalDate.now()
+                val date = backStackEntry.arguments?.getString("date")?.let { LocalDate.parse(it) }
+                    ?: LocalDate.now()
                 val stars = backStackEntry.arguments?.getString("stars")?.toIntOrNull() ?: 0
                 val comment = backStackEntry.arguments?.getString("comment") ?: ""
 
@@ -90,7 +90,7 @@ fun RateMyDayApp(
                     initialComment = comment,
                     navController = navController,
                     preferences = preferences
-                    )
+                )
             }
             composable(Screens.Theme.name) {
                 ThemeScreen(viewModel, navController, preferences = preferences)
@@ -107,8 +107,10 @@ fun CalendarScreen(
     preferences: Preferences
 ) {
     val currentMonth = remember { YearMonth.now() }
-    val startMonth = remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
-    val endMonth = remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
+    val startMonth =
+        remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
+    val endMonth =
+        remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
     val daysOfWeek = remember { daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY) }
 
     val state = rememberCalendarState( //state loading
@@ -116,7 +118,7 @@ fun CalendarScreen(
         endMonth = endMonth,
         firstVisibleMonth = currentMonth,
         firstDayOfWeek = daysOfWeek.first()
-        )
+    )
 
     val ratedDays = viewModel.ratedDays.collectAsState().value  //Get the list of rated days
     val ratedDatesMap = ratedDays.associateBy { it.date }       //Create a map with date as key
@@ -126,7 +128,7 @@ fun CalendarScreen(
     var selectedRateDay by remember { mutableStateOf<RateDayEntity?>(null) }
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
@@ -138,19 +140,30 @@ fun CalendarScreen(
                 modifier = Modifier.weight(1f),
                 state = state,
                 dayContent = { day ->
-                    val ratedDay = ratedDatesMap[day.date.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000] //Retrieve the rating (stars) for the current date
+                    val ratedDay = ratedDatesMap[day.date.atStartOfDay()
+                        .toEpochSecond(ZoneOffset.UTC) * 1000] //Retrieve the rating (stars) for the current date
                     val stars = ratedDay?.stars ?: 0 // Default to 0 if no rating exists
 
-                    Day(day = day, stars = stars, onDayClick = { // Pass both the day and the stars to the Day composable
-                        selectedDay = day.date
-                        selectedRateDay = ratedDatesMap[day.date.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000]
-                        isDialogVisible = true
-                    }, preferences = preferences
+                    Day(
+                        day = day,
+                        stars = stars,
+                        onDayClick = { // Pass both the day and the stars to the Day composable
+                            selectedDay = day.date
+                            selectedRateDay = ratedDatesMap[day.date.atStartOfDay()
+                                .toEpochSecond(ZoneOffset.UTC) * 1000]
+                            isDialogVisible = true
+                        },
+                        preferences = preferences
                     )
                 },
                 monthHeader = { month ->
                     Text(
-                        text = "${month.yearMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${month.yearMonth.year}",
+                        text = "${
+                            month.yearMonth.month.getDisplayName(
+                                TextStyle.FULL,
+                                Locale.getDefault()
+                            )
+                        } ${month.yearMonth.year}",
                         modifier = Modifier.padding(16.dp),
                         fontSize = 20.sp,
                         textAlign = TextAlign.Center
@@ -159,13 +172,14 @@ fun CalendarScreen(
                 }
             )
 
-            if(isDialogVisible && selectedDay != null) {
+            if (isDialogVisible && selectedDay != null) {
                 DayOptionsDialog(
                     selectedDay = selectedDay!!,
                     selectedRateDay = selectedRateDay,
                     onDismiss = { isDialogVisible = false },
                     onEditOrAdd = {
-                        val dateArgument = selectedDay?.toString() ?: LocalDate.now().toString() // Convert Local Date (selected or not) to String
+                        val dateArgument = selectedDay?.toString() ?: LocalDate.now()
+                            .toString() // Convert Local Date (selected or not) to String
                         val starsArgument = selectedRateDay?.stars ?: 0
                         val commentArgument = selectedRateDay?.comment ?: ""
                         navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument/$commentArgument") // Redirect to RateDayFormScreen with date as part of the route
@@ -225,14 +239,14 @@ fun RateDayFormScreen(
             Text("Rating: $stars Stars")
             StarRating(
                 rating = stars,
-                onRatingChange = { stars = it}
+                onRatingChange = { stars = it }
             )
 
             // Comment Input Field
             OutlinedTextField(
                 value = comment,
                 onValueChange = {
-                    if(it.length <= maxCommentLength) comment = it
+                    if (it.length <= maxCommentLength) comment = it
                 },
                 label = { Text("Comment") },
                 placeholder = { Text("How was your day?") },
@@ -253,9 +267,11 @@ fun RateDayFormScreen(
                         stars !in 1..5 -> {
                             errorMessage = "Stars cannot be less than 1 or greater than 5."
                         }
+
                         selectedDate.isAfter(currentDate) -> {
                             errorMessage = "Cannot save a future date."
                         }
+
                         else -> {
                             val dateInMillis = selectedDate.atStartOfDay()
                                 .toEpochSecond(ZoneOffset.UTC) * 1000 // Convert LocalDate to milliseconds
@@ -287,38 +303,63 @@ fun RateDayFormScreen(
 }
 
 @Composable
-fun ThemeScreen(viewModel: RateMyDayViewModel, navController: NavController, preferences : Preferences) {
+fun ThemeScreen(
+    viewModel: RateMyDayViewModel,
+    navController: NavController,
+    preferences: Preferences
+) {
 
 
     val scope = rememberCoroutineScope()
     val value by preferences.getString.collectAsState("")
-
+    val mode by preferences.getBoolean.collectAsState(false)
 
     var expanded by remember { mutableStateOf(false) }
 
+
     val menuItemData = themes
+
+
 
     Box(
         modifier = Modifier
             .padding(16.dp)
-    ) {
-        Button(onClick = { expanded = !expanded }) {
-            Text(text = value)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
+            .fillMaxSize()
+    )
+    {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            menuItemData.forEachIndexed { _, option ->
-                DropdownMenuItem(
-                    text = { Text(option) },
-                    onClick = {
-                        scope.launch {
-                            preferences.saveString(option)
-                        }
-                        expanded = false
+            Switch(
+                checked = mode,
+                onCheckedChange = {
+
+                    scope.launch {
+                        preferences.saveBoolean(!mode)
                     }
-                )
+                }
+            )
+
+            Button(onClick = { expanded = !expanded }) {
+                Text(text = value)
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                menuItemData.forEachIndexed { _, option ->
+                    DropdownMenuItem(
+                        text = { Text(option) },
+                        onClick = {
+                            scope.launch {
+                                preferences.saveString(option)
+                            }
+                            expanded = false
+                        }
+                    )
+                }
             }
         }
     }
