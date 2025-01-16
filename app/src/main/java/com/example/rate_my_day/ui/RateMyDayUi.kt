@@ -74,7 +74,8 @@ fun RateMyDayApp(
                     initialDate = LocalDate.now(),
                     initialStars = 0,
                     initialComment = "",
-                    navController = navController
+                    navController = navController,
+                    preferences
                 )
             }
             composable("${Screens.Rate.name}/{date}/{stars}/{comment}") { backStackEntry ->
@@ -87,7 +88,8 @@ fun RateMyDayApp(
                     initialDate = date,
                     initialStars = stars,
                     initialComment = comment,
-                    navController = navController
+                    navController = navController,
+                    preferences = preferences
                     )
             }
             composable(Screens.Theme.name) {
@@ -176,7 +178,7 @@ fun CalendarScreen(
                 )
             }
         }
-        Row { RatingLegend() }
+        Row { RatingLegend(preferences = preferences) }
     }
 }
 
@@ -186,7 +188,8 @@ fun RateDayFormScreen(
     initialDate: LocalDate,
     initialStars: Int,
     initialComment: String,
-    navController: NavController
+    navController: NavController,
+    preferences: Preferences
 ) {
     var stars by remember { mutableIntStateOf(initialStars) }
     val selectedDate by remember { mutableStateOf(initialDate) }
@@ -216,7 +219,7 @@ fun RateDayFormScreen(
                 selectedDate.format(dateFormatter)
             )
 
-            RatingLegend()
+            RatingLegend(preferences = preferences)
 
             //5 point range slider of Stars
             Text("Rating: $stars Stars")

@@ -297,7 +297,7 @@ fun ReadTableRatedDays(viewModel: RateMyDayViewModel) {
 */
 
 @Composable
-fun RatingLegend() {
+fun RatingLegend(preferences: Preferences) {
     Column (
         Modifier
             .padding(16.dp)
@@ -305,11 +305,11 @@ fun RatingLegend() {
         //horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        RatingLegendItem(color = Color(0xFF3D348B), description = "1 Star - Very Bad")
-        RatingLegendItem(color = Color(0xFF7678ED), description = "2 Stars - Bad")
-        RatingLegendItem(color = Color(0xFFF7B801), description = "3 Stars - Okay")
-        RatingLegendItem(color = Color(0xFFF18701), description = "4 Stars - Good")
-        RatingLegendItem(color = Color(0xFFF35B04), description = "5 Stars - Excellent")
+        RatingLegendItem(color = LightColorScheme.star1(preferences = preferences), description = "1 Star - Very Bad")
+        RatingLegendItem(color = LightColorScheme.star2(preferences = preferences), description = "2 Stars - Bad")
+        RatingLegendItem(color = LightColorScheme.star3(preferences = preferences), description = "3 Stars - Okay")
+        RatingLegendItem(color = LightColorScheme.star4(preferences = preferences), description = "4 Stars - Good")
+        RatingLegendItem(color = LightColorScheme.star5(preferences = preferences), description = "5 Stars - Excellent")
     }
 }
 
