@@ -66,7 +66,7 @@ fun RateMyDayApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.View.name) {
-                CalendarScreen(viewModel, navController)
+                CalendarScreen(viewModel, navController, preferences)
             }
             composable(Screens.Rate.name) {
                 RateDayFormScreen(
@@ -101,7 +101,8 @@ fun RateMyDayApp(
 @Composable
 fun CalendarScreen(
     viewModel: RateMyDayViewModel,
-    navController: NavController
+    navController: NavController,
+    preferences: Preferences
 ) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
@@ -142,7 +143,8 @@ fun CalendarScreen(
                         selectedDay = day.date
                         selectedRateDay = ratedDatesMap[day.date.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000]
                         isDialogVisible = true
-                    })
+                    }, preferences = preferences
+                    )
                 },
                 monthHeader = { month ->
                     Text(
