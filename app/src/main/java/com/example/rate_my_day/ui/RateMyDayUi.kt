@@ -21,8 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
-import androidx.datastore.dataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -55,12 +53,10 @@ fun RateMyDayApp(
     preferences: Preferences
 ) {
     val navController = rememberNavController()
-    val backgroundColor = Color(0xFFE9D6B8)
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor),
+            .fillMaxSize(),
         bottomBar = { BottomNavigationBar(navController, viewModel) }
     ) {
         innerPadding ->
