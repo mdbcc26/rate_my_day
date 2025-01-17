@@ -21,6 +21,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.AlertDialog
@@ -39,7 +41,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,7 +49,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.data.db.RateDayEntity
-import com.example.rate_my_day.ui.theme.DarkColorScheme
 import com.example.rate_my_day.ui.theme.LightColorScheme
 import com.example.rate_my_day.ui.theme.star1
 import com.example.rate_my_day.ui.theme.star2
@@ -59,6 +59,7 @@ import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -193,6 +194,39 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
     }
 }
 
+
+@Composable
+fun MonthHeader(
+    month: YearMonth,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowLeft, // Updated Material 3 icon
+            contentDescription = "Previous Month"
+            )
+        Text(
+            text = "${month.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${month.year}",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f)
+        )
+
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowRight, // Updated Material 3 icon
+            contentDescription = "Next Month"
+        )
+
+    }
+}
+
+
 @Composable
 fun DaysOfWeekTitle() {
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -201,6 +235,7 @@ fun DaysOfWeekTitle() {
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                fontWeight = FontWeight.Bold
             )
         }
     }

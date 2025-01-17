@@ -5,11 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -19,6 +24,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -107,10 +115,8 @@ fun CalendarScreen(
     preferences: Preferences
 ) {
     val currentMonth = remember { YearMonth.now() }
-    val startMonth =
-        remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
-    val endMonth =
-        remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
+    val startMonth = remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
+    val endMonth = remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
     val daysOfWeek = remember { daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY) }
 
     val state = rememberCalendarState( //state loading
@@ -157,18 +163,38 @@ fun CalendarScreen(
                     )
                 },
                 monthHeader = { month ->
-                    Text(
-                        text = "${
-                            month.yearMonth.month.getDisplayName(
-                                TextStyle.FULL,
-                                Locale.getDefault()
+                    MonthHeader( month = month.yearMonth )
+                    /*Column (
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowLeft,
+                                contentDescription = "LeftArrow"
                             )
-                        } ${month.yearMonth.year}",
-                        modifier = Modifier.padding(16.dp),
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center
-                    )
+                            Text(
+                                text = "${
+                                    month.yearMonth.month.getDisplayName(
+                                        TextStyle.FULL,
+                                        Locale.getDefault()
+                                    )
+                                } ${month.yearMonth.year}",
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowRight,
+                                contentDescription = "RightArrow"
+                            )
+                        }
+                    }*/
                     DaysOfWeekTitle()
+
                 }
             )
 
