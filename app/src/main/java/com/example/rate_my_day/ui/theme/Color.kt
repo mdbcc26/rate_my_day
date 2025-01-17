@@ -71,6 +71,6 @@ val Fanta5 = Color(0xFFFF8D0A)
 // Only Flag I Stand For Scheme
 val OFISF1 = Color(0xFF1CA1FF)
 val OFISF2 = Color(0xFF8ED0FF)
-val OFISF3 = Color(0xFFFFFFFF)
+val OFISF3 = Color(0xFFBCB5CF)
 val OFISF4 = Color(0xFFFF9DE8)
 val OFISF5 = Color(0xFFFF3BD1)
