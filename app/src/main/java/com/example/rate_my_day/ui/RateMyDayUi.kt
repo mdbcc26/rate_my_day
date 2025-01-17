@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter
 
 enum class Screens { View, Rate, Theme }
 
-val themes = listOf("Default", "Dark Mode", "Green")
+val themes = listOf("Default", "Red", "Green", "Blue", "Yellow", "Orchard", "Rimmy Tim", "Fanta", "OFISF")
 
 
 @Composable

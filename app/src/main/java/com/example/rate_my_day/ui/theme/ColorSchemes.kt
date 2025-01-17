@@ -25,10 +25,19 @@ babby blew -> neom ponk
 fun ColorScheme.star5(preferences: Preferences): Color {
     val theme by preferences.getString.collectAsState("")
     return when (theme) {
-        "Dark Mode" -> Persimmon
+
+        "Red" -> Red5
         "Green" -> Green5
-        "Default" -> Tekhelet
-        else -> { Persimmon }
+        "Blue" -> Blue5
+        "Yellow" -> Yellow5
+        "Orchard" -> Orchard5
+        "Rimmy Tim" -> Rimmy_Tim5
+        "Fanta" -> Fanta5
+        "OFISF" -> OFISF5
+        "Default" -> Persimmon
+        else -> {
+            Persimmon
+        }
     }
 }
 
@@ -36,10 +45,19 @@ fun ColorScheme.star5(preferences: Preferences): Color {
 fun ColorScheme.star4(preferences: Preferences): Color {
     val theme by preferences.getString.collectAsState("")
     return when (theme) {
-        "Dark Mode" -> Persimmon
+
+        "Red" -> Red4
         "Green" -> Green4
-        "Default" -> Tekhelet
-        else -> { Persimmon }
+        "Blue" -> Blue4
+        "Yellow" -> Yellow4
+        "Orchard" -> Orchard4
+        "Rimmy Tim" -> Rimmy_Tim4
+        "Fanta" -> Fanta4
+        "OFISF" -> OFISF4
+        "Default" -> Tangerine
+        else -> {
+            Persimmon
+        }
     }
 }
 
@@ -47,10 +65,19 @@ fun ColorScheme.star4(preferences: Preferences): Color {
 fun ColorScheme.star3(preferences: Preferences): Color {
     val theme by preferences.getString.collectAsState("")
     return when (theme) {
-        "Dark Mode" -> Persimmon
+
+        "Red" -> Red3
         "Green" -> Green3
-        "Default" -> Tekhelet
-        else -> { Persimmon }
+        "Blue" -> Blue3
+        "Yellow" -> Yellow3
+        "Orchard" -> Orchard3
+        "Rimmy Tim" -> Rimmy_Tim3
+        "Fanta" -> Fanta3
+        "OFISF" -> OFISF3
+        "Default" -> SelectiveYellow
+        else -> {
+            Persimmon
+        }
     }
 }
 
@@ -58,10 +85,19 @@ fun ColorScheme.star3(preferences: Preferences): Color {
 fun ColorScheme.star2(preferences: Preferences): Color {
     val theme by preferences.getString.collectAsState("")
     return when (theme) {
-        "Dark Mode" -> Persimmon
+
+        "Red" -> Red2
         "Green" -> Green2
-        "Default" -> Tekhelet
-        else -> { Persimmon }
+        "Blue" -> Blue2
+        "Yellow" -> Yellow2
+        "Orchard" -> Orchard2
+        "Rimmy Tim" -> Rimmy_Tim2
+        "Fanta" -> Fanta2
+        "OFISF" -> OFISF2
+        "Default" -> MedSlateBlue
+        else -> {
+            Persimmon
+        }
     }
 }
 
@@ -69,9 +105,18 @@ fun ColorScheme.star2(preferences: Preferences): Color {
 fun ColorScheme.star1(preferences: Preferences): Color {
     val theme by preferences.getString.collectAsState("")
     return when (theme) {
-        "Dark Mode" -> Persimmon
+
+        "Red" -> Red1
         "Green" -> Green1
+        "Blue" -> Blue1
+        "Yellow" -> Yellow1
+        "Orchard" -> Orchard1
+        "Rimmy Tim" -> Rimmy_Tim1
+        "Fanta" -> Fanta1
+        "OFISF" -> OFISF1
         "Default" -> Tekhelet
-        else -> { Persimmon }
+        else -> {
+            Persimmon
+        }
     }
 }
