@@ -15,7 +15,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
 import com.example.rate_my_day.data.Preferences
 
+val DarkColorScheme = darkColorScheme(
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80,
 
+    )
+
+val LightColorScheme = lightColorScheme(
+    primary = Purple40,
+    secondary = PurpleGrey40,
+    tertiary = Pink40,
+)
 
 @Composable
 fun RateMyDayTheme(

@@ -10,20 +10,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import com.example.rate_my_day.data.Preferences
 
+/* TODO
 
-val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
+RGBY
+Red -> Green
+Urple -> Yeller
+Blew -> Orangay
+babby blew -> neom ponk
 
-    )
 
-val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-)
-
+ */
 
 @Composable
 fun ColorScheme.star5(preferences: Preferences): Color {
