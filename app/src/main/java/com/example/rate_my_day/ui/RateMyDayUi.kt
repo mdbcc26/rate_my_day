@@ -85,7 +85,7 @@ fun RateMyDayApp(
                 )
             }
             composable(Screens.Theme.name) {
-                ThemeScreen(viewModel, navController, preferences = preferences)
+                ThemeScreen( preferences = preferences )
             }
         }
     }
@@ -118,37 +118,38 @@ fun CalendarScreen(
     var selectedRateDay by remember { mutableStateOf<RateDayEntity?>(null) }
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Column {
         RateMyDayHeader(preferences = preferences)
-        Row {
-            //Shows a calendar. Information is pulled from Room database and assigns a colour to the date relating to the amount of stars
-            HorizontalCalendar(
-                modifier = Modifier.weight(1f),
-                state = state,
-                dayContent = { day ->
-                    val ratedDay = ratedDatesMap[day.date.atStartOfDay()
-                        .toEpochSecond(ZoneOffset.UTC) * 1000] //Retrieve the rating (stars) for the current date
-                    val stars = ratedDay?.stars ?: 0 // Default to 0 if no rating exists
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Row {
+                //Shows a calendar. Information is pulled from Room database and assigns a colour to the date relating to the amount of stars
+                HorizontalCalendar(
+                    modifier = Modifier.weight(1f),
+                    state = state,
+                    dayContent = { day ->
+                        val ratedDay = ratedDatesMap[day.date.atStartOfDay()
+                            .toEpochSecond(ZoneOffset.UTC) * 1000] //Retrieve the rating (stars) for the current date
+                        val stars = ratedDay?.stars ?: 0 // Default to 0 if no rating exists
 
-                    Day(
-                        day = day,
-                        stars = stars,
-                        onDayClick = { // Pass both the day and the stars to the Day composable
-                            selectedDay = day.date
-                            selectedRateDay = ratedDatesMap[day.date.atStartOfDay()
-                                .toEpochSecond(ZoneOffset.UTC) * 1000]
-                            isDialogVisible = true
-                        },
-                        preferences = preferences
-                    )
-                },
-                monthHeader = { month ->
-                    MonthHeader( month = month.yearMonth )
-                    /*Column (
+                        Day(
+                            day = day,
+                            stars = stars,
+                            onDayClick = { // Pass both the day and the stars to the Day composable
+                                selectedDay = day.date
+                                selectedRateDay = ratedDatesMap[day.date.atStartOfDay()
+                                    .toEpochSecond(ZoneOffset.UTC) * 1000]
+                                isDialogVisible = true
+                            },
+                            preferences = preferences
+                        )
+                    },
+                    monthHeader = { month ->
+                        MonthHeader(month = month.yearMonth)
+                        /*Column (
                         verticalArrangement = Arrangement.Center
                     ) {
                     Row(
@@ -177,32 +178,33 @@ fun CalendarScreen(
                             )
                         }
                     }*/
-                    DaysOfWeekTitle()
+                        DaysOfWeekTitle()
 
-                }
-            )
-
-            if (isDialogVisible && selectedDay != null) {
-                DayOptionsDialog(
-                    selectedDay = selectedDay!!,
-                    selectedRateDay = selectedRateDay,
-                    onDismiss = { isDialogVisible = false },
-                    onEditOrAdd = {
-                        val dateArgument = selectedDay?.toString() ?: LocalDate.now()
-                            .toString() // Convert Local Date (selected or not) to String
-                        val starsArgument = selectedRateDay?.stars ?: 0
-                        val commentArgument = selectedRateDay?.comment ?: ""
-                        navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument/$commentArgument") // Redirect to RateDayFormScreen with date as part of the route
-                        isDialogVisible = false
-                    },
-                    onDelete = {
-                        selectedDay?.let { viewModel.deleteRatedDayByDate(it.toEpochMillis()) }
-                        isDialogVisible = false
                     }
                 )
+
+                if (isDialogVisible && selectedDay != null) {
+                    DayOptionsDialog(
+                        selectedDay = selectedDay!!,
+                        selectedRateDay = selectedRateDay,
+                        onDismiss = { isDialogVisible = false },
+                        onEditOrAdd = {
+                            val dateArgument = selectedDay?.toString() ?: LocalDate.now()
+                                .toString() // Convert Local Date (selected or not) to String
+                            val starsArgument = selectedRateDay?.stars ?: 0
+                            val commentArgument = selectedRateDay?.comment ?: ""
+                            navController.navigate("${Screens.Rate.name}/$dateArgument/$starsArgument/$commentArgument") // Redirect to RateDayFormScreen with date as part of the route
+                            isDialogVisible = false
+                        },
+                        onDelete = {
+                            selectedDay?.let { viewModel.deleteRatedDayByDate(it.toEpochMillis()) }
+                            isDialogVisible = false
+                        }
+                    )
+                }
             }
+            Row { RatingLegend(preferences = preferences) }
         }
-        Row { RatingLegend(preferences = preferences) }
     }
 }
 
@@ -226,16 +228,16 @@ fun RateDayFormScreen(
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
 
 
-    Box(
+    Column (
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+
     ) {
         RateMyDayHeader(preferences = preferences)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .align(Alignment.Center),
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
         ) {
@@ -314,8 +316,6 @@ fun RateDayFormScreen(
 
 @Composable
 fun ThemeScreen(
-    viewModel: RateMyDayViewModel,
-    navController: NavController,
     preferences: Preferences
 ) {
 

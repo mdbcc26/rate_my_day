@@ -256,19 +256,46 @@ fun DayOptionsDialog(
         onDismissRequest = onDismiss,
         title = { Text(text = "Rating") },
         text = {
-            Column {
-                Text(text = selectedDay.format(dateFormatter))
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = selectedDay.format(dateFormatter),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 if (isFutureDay) {
-                    Text(text = "Future days can't be rated.", color = Color.Red)
+                    Text(
+                        text = "Future days can't be rated.",
+                        color = Color.Red,
+                        textAlign = TextAlign.Center
+                    )
                 } else if (selectedRateDay != null) {
-                    ViewStars(rating = selectedRateDay.stars, modifier = Modifier.padding(top = 8.dp))
+                    ViewStars(
+                        rating = selectedRateDay.stars,
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                    )
                     selectedRateDay.comment?.let { comment ->
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text(text = comment)
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding( horizontal = 16.dp)
+                        ) {
+                            Text(
+                                text = comment,
+                                textAlign = TextAlign.Start,
+                                style = MaterialTheme.typography.bodyMedium)
+                        }
                     }
                 } else {
-                    Text(text = "This day has not been rated yet.")
+                    Text(
+                        text = "This day has not been rated yet.",
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         },
@@ -295,16 +322,13 @@ fun ViewStars(
     rating: Int,
     modifier: Modifier
 ) {
-    Row(
-        modifier = Modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    Row( modifier = modifier ) {
         repeat(rating) {
             Icon(
                 imageVector = Icons.Filled.Star,
                 contentDescription = null,
                 tint = Color(0xFFF7B801),
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(50.dp)
             )
         }
     }
