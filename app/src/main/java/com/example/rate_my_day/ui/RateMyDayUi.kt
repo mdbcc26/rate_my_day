@@ -340,9 +340,15 @@ fun ThemeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
+            Text(
+                modifier = Modifier
+                    .padding(4.dp),
+                text = "Light/Dark Mode"
+            )
             Switch(
+
                 checked = mode,
                 onCheckedChange = {
 
@@ -351,11 +357,20 @@ fun ThemeScreen(
                     }
                 }
             )
-
-            Button(onClick = { expanded = !expanded }) {
+            Text(
+                modifier = Modifier
+                    .padding(4.dp),
+                text = "Theme"
+            )
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = { expanded = !expanded }) {
                 Text(text = value)
             }
             DropdownMenu(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
@@ -371,6 +386,7 @@ fun ThemeScreen(
                     )
                 }
             }
+            RatingLegend(preferences)
         }
     }
 }
