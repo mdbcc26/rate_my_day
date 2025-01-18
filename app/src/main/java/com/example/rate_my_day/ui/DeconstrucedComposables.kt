@@ -165,21 +165,6 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
             .clickable(onClick = onDayClick), // Handle day click
         contentAlignment = Alignment.Center
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            //Add a circle for today's date
-            if (isToday) {
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(color = Color(0xFF574AE2), shape = CircleShape)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-            }
-        }
         //Show the coloured circle if the date has a rating
         if (stars > 0) {
             Box(
@@ -188,6 +173,21 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
                     .background(color = ratingColor, shape = CircleShape),
                 contentAlignment = Alignment.Center
             ) {}
+        }
+        //Add a circle for today's date
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (isToday) {
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(color = Color(0xFF574AE2), shape = CircleShape)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
 
         Text(
