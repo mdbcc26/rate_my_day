@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 //import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -112,14 +113,14 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
             selected = currentRoute == Screens.View.name,
             onClick = { navController.navigate(Screens.View.name) },
             icon = { Icon(imageVector = Icons.Filled.DateRange, contentDescription = "Calendar") },
-            label = { Text("View")}
+            label = { Text("View") }
         )
         NavigationBarItem(
             selected = currentRoute?.startsWith(Screens.Rate.name) == true,
             onClick = {
                 val today = LocalDate.now()
                 val todayInMillis = today.atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000
-                val todayRateDay = ratedDays.firstOrNull { it.date == todayInMillis}
+                val todayRateDay = ratedDays.firstOrNull { it.date == todayInMillis }
 
                 val dateArgument = today.toString()
                 val starsArgument = todayRateDay?.stars ?: 0
@@ -131,13 +132,13 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                 }
             },
             icon = { Icon(imageVector = Icons.Filled.Star, contentDescription = "Star") },
-            label = { Text("Rate")}
+            label = { Text("Rate") }
         )
         NavigationBarItem(
             selected = currentRoute == Screens.Theme.name,
             onClick = { navController.navigate(Screens.Theme.name) },
             icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = "Theme") },
-            label = { Text("Theme")}
+            label = { Text("Theme") }
         )
     }
 }
@@ -157,24 +158,31 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
         else -> Color.Transparent
     }
 
-    Box(modifier = Modifier
-        .aspectRatio(1f)
-        .padding(4.dp)
-        .clickable(onClick = onDayClick), // Handle day click
+    Box(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .padding(4.dp)
+            .clickable(onClick = onDayClick), // Handle day click
         contentAlignment = Alignment.Center
     ) {
-        //Add a circle for today's date
-        if (isToday) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(color = Color(0xFFB3E5FC), shape = CircleShape)
-            )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            //Add a circle for today's date
+            if (isToday) {
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(color = Color(0xFF574AE2), shape = CircleShape)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
         }
-
         //Show the coloured circle if the date has a rating
         if (stars > 0) {
-            Box (
+            Box(
                 modifier = Modifier
                     .size(36.dp)
                     .background(color = ratingColor, shape = CircleShape),
@@ -191,6 +199,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
                 else -> Color.Black
             }
         )
+
     }
 }
 
@@ -209,9 +218,14 @@ fun MonthHeader(
         Icon(
             imageVector = Icons.Default.KeyboardArrowLeft, // Updated Material 3 icon
             contentDescription = "Previous Month"
-            )
+        )
         Text(
-            text = "${month.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${month.year}",
+            text = "${
+                month.month.getDisplayName(
+                    TextStyle.FULL,
+                    Locale.getDefault()
+                )
+            } ${month.year}",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -256,7 +270,7 @@ fun DayOptionsDialog(
         onDismissRequest = onDismiss,
         title = { Text(text = "Rating") },
         text = {
-            Column (
+            Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -283,12 +297,13 @@ fun DayOptionsDialog(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding( horizontal = 16.dp)
+                                .padding(horizontal = 16.dp)
                         ) {
                             Text(
                                 text = comment,
                                 textAlign = TextAlign.Start,
-                                style = MaterialTheme.typography.bodyMedium)
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
                 } else {
@@ -322,7 +337,7 @@ fun ViewStars(
     rating: Int,
     modifier: Modifier
 ) {
-    Row( modifier = modifier ) {
+    Row(modifier = modifier) {
         repeat(rating) {
             Icon(
                 imageVector = Icons.Filled.Star,
@@ -337,38 +352,53 @@ fun ViewStars(
 /** Used for database testing and visibility of RatedDays table.
 @Composable
 fun ReadTableRatedDays(viewModel: RateMyDayViewModel) {
-    val ratedDays by viewModel.ratedDays.collectAsState()
+val ratedDays by viewModel.ratedDays.collectAsState()
 
-    Column (
-    modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)
-    ) {
-    Text("Rated Days")
+Column (
+modifier = Modifier
+.fillMaxSize()
+.padding(16.dp)
+) {
+Text("Rated Days")
 
-    LazyColumn {
-        items(ratedDays) { rateDay ->
-            Text("Date: ${rateDay.date} | Stars: ${rateDay.stars} | Comment: ${rateDay.comment}")
-            }
-        }
-    }
+LazyColumn {
+items(ratedDays) { rateDay ->
+Text("Date: ${rateDay.date} | Stars: ${rateDay.stars} | Comment: ${rateDay.comment}")
 }
-*/
+}
+}
+}
+ */
 
 @Composable
 fun RatingLegend(preferences: Preferences) {
-    Column (
+    Column(
         Modifier
             .padding(16.dp)
             .fillMaxWidth(),
         //horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        RatingLegendItem(color = LightColorScheme.star1(preferences = preferences), description = "1 Star - Very Bad")
-        RatingLegendItem(color = LightColorScheme.star2(preferences = preferences), description = "2 Stars - Bad")
-        RatingLegendItem(color = LightColorScheme.star3(preferences = preferences), description = "3 Stars - Okay")
-        RatingLegendItem(color = LightColorScheme.star4(preferences = preferences), description = "4 Stars - Good")
-        RatingLegendItem(color = LightColorScheme.star5(preferences = preferences), description = "5 Stars - Excellent")
+        RatingLegendItem(
+            color = LightColorScheme.star1(preferences = preferences),
+            description = "1 Star - Very Bad"
+        )
+        RatingLegendItem(
+            color = LightColorScheme.star2(preferences = preferences),
+            description = "2 Stars - Bad"
+        )
+        RatingLegendItem(
+            color = LightColorScheme.star3(preferences = preferences),
+            description = "3 Stars - Okay"
+        )
+        RatingLegendItem(
+            color = LightColorScheme.star4(preferences = preferences),
+            description = "4 Stars - Good"
+        )
+        RatingLegendItem(
+            color = LightColorScheme.star5(preferences = preferences),
+            description = "5 Stars - Excellent"
+        )
     }
 }
 
