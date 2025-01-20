@@ -155,35 +155,7 @@ fun CalendarScreen(
                     },
                     monthHeader = { month ->
                         MonthHeader(month = month.yearMonth)
-                        /*Column (
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.KeyboardArrowLeft,
-                                contentDescription = "LeftArrow"
-                            )
-                            Text(
-                                text = "${
-                                    month.yearMonth.month.getDisplayName(
-                                        TextStyle.FULL,
-                                        Locale.getDefault()
-                                    )
-                                } ${month.yearMonth.year}",
-                                modifier = Modifier.padding(16.dp),
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center
-                            )
-                            Icon(
-                                imageVector = Icons.Filled.KeyboardArrowRight,
-                                contentDescription = "RightArrow"
-                            )
-                        }
-                    }*/
+
                         DaysOfWeekTitle()
 
                     }
