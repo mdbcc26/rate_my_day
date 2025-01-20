@@ -1,5 +1,6 @@
 package com.example.rate_my_day.ui
 
+import androidx.compose.foundation.background
 import com.example.rate_my_day.data.db.RateDayEntity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.rate_my_day.data.Preferences
+import com.example.rate_my_day.ui.theme.LightColorScheme
+import com.example.rate_my_day.ui.theme.star5
 import com.example.rate_my_day.utils.toEpochMillis
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
@@ -38,7 +41,7 @@ import java.time.format.DateTimeFormatter
 
 enum class Screens { View, Rate, Theme }
 
-val themes = listOf("Legacy", "Red", "Green", "Blue", "Yellow", "Orchard", "Rimmy Tim", "Fanta", "OFISF")
+val themes = listOf("Legacy", "Red", "Green", "Blue", "Yellow", "Orchard", "Rimmy Tim", "Fanta", "OFISF", "Jesus")
 
 
 @Composable
@@ -51,12 +54,13 @@ fun RateMyDayApp(
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-        bottomBar = { BottomNavigationBar(navController, viewModel) }
+        bottomBar = { BottomNavigationBar(navController, viewModel, preferences) }
     ) { innerPadding ->
         NavHost(
             navController,
             startDestination = Screens.Rate.name, //startDestination,
             modifier = Modifier.padding(innerPadding)
+
         ) {
             composable(Screens.View.name) {
                 CalendarScreen(viewModel, navController, preferences)

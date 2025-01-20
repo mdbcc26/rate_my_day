@@ -74,3 +74,10 @@ val OFISF2 = Color(0xFF8ED0FF)
 val OFISF3 = Color(0xFFBCB5CF)
 val OFISF4 = Color(0xFFFF9DE8)
 val OFISF5 = Color(0xFFFF3BD1)
+
+// Jesus Theme
+val Jesus1 = Color(0xFF340052)
+val Jesus2 = Color(0xFF4f079d)
+val Jesus3 = Color(0xFF4c0dbf)
+val Jesus4 = Color(0xFF3f13cd)
+val Jesus5 = Color(0xFF361eeb)

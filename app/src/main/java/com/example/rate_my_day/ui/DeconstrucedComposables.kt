@@ -28,11 +28,13 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -104,16 +106,20 @@ fun RateMyDayHeader(preferences: Preferences) {
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewModel) {
+fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewModel, preferences: Preferences) {
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val ratedDays by viewModel.ratedDays.collectAsState(emptyList())
+    val color1 = LightColorScheme.star1(preferences).copy(alpha = 0.8f)
+    val color2 = LightColorScheme.star3(preferences).copy(alpha = 0.8f)
+    val color3 = LightColorScheme.star5(preferences).copy(alpha = 0.8f)
 
     NavigationBar {
         NavigationBarItem(
             selected = currentRoute == Screens.View.name,
             onClick = { navController.navigate(Screens.View.name) },
             icon = { Icon(imageVector = Icons.Filled.DateRange, contentDescription = "Calendar") },
-            label = { Text("View") }
+            label = { Text("View") },
+            modifier =  Modifier.background(color = color1, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
             selected = currentRoute?.startsWith(Screens.Rate.name) == true,
@@ -132,13 +138,16 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                 }
             },
             icon = { Icon(imageVector = Icons.Filled.Star, contentDescription = "Star") },
-            label = { Text("Rate") }
+            label = { Text("Rate") },
+            modifier =  Modifier.background(color = color2, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
             selected = currentRoute == Screens.Theme.name,
             onClick = { navController.navigate(Screens.Theme.name) },
             icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = "Theme") },
-            label = { Text("Theme") }
+            label = { Text("Theme") },
+            modifier =  Modifier.background(color = color3, shape = RoundedCornerShape(12.dp))
+
         )
     }
 }
@@ -184,7 +193,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
                 Box(
                     modifier = Modifier
                         .size(8.dp)
-                        .background(color = Color(0xFF574AE2), shape = CircleShape)
+                        .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -376,8 +385,8 @@ fun RatingLegend(preferences: Preferences) {
         Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        //horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         RatingLegendItem(
             color = LightColorScheme.star1(preferences = preferences),
