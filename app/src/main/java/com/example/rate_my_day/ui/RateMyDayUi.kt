@@ -1,5 +1,6 @@
 package com.example.rate_my_day.ui
 
+import androidx.compose.foundation.background
 import com.example.rate_my_day.data.db.RateDayEntity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,8 +9,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -22,6 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -29,6 +37,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.rate_my_day.data.Preferences
+import com.example.rate_my_day.ui.theme.LightColorScheme
+import com.example.rate_my_day.ui.theme.star1
+import com.example.rate_my_day.ui.theme.star2
+import com.example.rate_my_day.ui.theme.star3
+import com.example.rate_my_day.ui.theme.star4
+import com.example.rate_my_day.ui.theme.star5
 import com.example.rate_my_day.utils.toEpochMillis
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
@@ -39,10 +53,22 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import kotlin.math.round
 
 enum class Screens { View, Rate, Theme }
 
-val themes = listOf("Legacy", "Red", "Green", "Blue", "Yellow", "Orchard", "Rimmy Tim", "Fanta", "OFISF", "Jesus")
+val themes = listOf(
+    "Legacy",
+    "Red",
+    "Green",
+    "Blue",
+    "Yellow",
+    "Orchard",
+    "Rimmy Tim",
+    "Fanta",
+    "OFISF",
+    "Jesus"
+)
 
 
 @Composable
@@ -92,7 +118,7 @@ fun RateMyDayApp(
                 )
             }
             composable(Screens.Theme.name) {
-                ThemeScreen( preferences = preferences )
+                ThemeScreen(preferences = preferences)
             }
         }
     }
@@ -208,7 +234,7 @@ fun RateDayFormScreen(
     val dateFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
 
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
 
@@ -338,6 +364,19 @@ fun ThemeScreen(
                     scope.launch {
                         preferences.saveBoolean(!mode)
                     }
+                },
+                thumbContent = if (mode) {
+                    {
+                        /*  Icon(
+                              imageVector = Icons.Filled.Moon,
+                              contentDescription = null,
+                              modifier = Modifier.size(SwitchDefaults.IconSize),
+                          )
+
+                         */
+                    }
+                } else {
+                    null
                 }
             )
             Text(
@@ -348,40 +387,54 @@ fun ThemeScreen(
             Box(
                 modifier = Modifier,
             ) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                onClick = { expanded = !expanded })
-            {
-                Text(text = value)
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = "",
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onClick = { expanded = !expanded },
+                    colors = ButtonColors(LightColorScheme.star1(preferences), LightColorScheme.star2(preferences), LightColorScheme.star3(preferences), LightColorScheme.star4(preferences)),
                 )
+                {
+                    Text(text = value)
+                    if (!expanded) {
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowDown,
+                            contentDescription = "",
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowUp,
+                            contentDescription = "",
+                        )
+                    }
 
-            }
-            DropdownMenu(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
 
 
-                ) {
-                menuItemData.forEachIndexed { _, option ->
-                    DropdownMenuItem(
-                        text = { Text(option) },
-                        onClick = {
-                            scope.launch {
-                                preferences.saveString(option)
-                            }
-                            expanded = false
+                    DropdownMenu(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .background(LightColorScheme.star3(preferences)),
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+
+
+                        ) {
+                        menuItemData.forEachIndexed { _, option ->
+                            DropdownMenuItem(
+                                text = { Text(option) },
+                                onClick = {
+                                    scope.launch {
+                                        preferences.saveString(option)
+                                    }
+                                    expanded = false
+                                }
+
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
-        }
     }
 }
+
 
