@@ -34,7 +34,7 @@ fun ColorScheme.star5(preferences: Preferences): Color {
         "Rimmy Tim" -> Rimmy_Tim5
         "Fanta" -> Fanta5
         "OFISF" -> OFISF5
-        "Default" -> Persimmon
+        "Legacy" -> Persimmon
         else -> {
             Persimmon
         }
@@ -54,9 +54,9 @@ fun ColorScheme.star4(preferences: Preferences): Color {
         "Rimmy Tim" -> Rimmy_Tim4
         "Fanta" -> Fanta4
         "OFISF" -> OFISF4
-        "Default" -> Tangerine
+        "Legacy" -> Tangerine
         else -> {
-            Persimmon
+            Tangerine
         }
     }
 }
@@ -74,9 +74,9 @@ fun ColorScheme.star3(preferences: Preferences): Color {
         "Rimmy Tim" -> Rimmy_Tim3
         "Fanta" -> Fanta3
         "OFISF" -> OFISF3
-        "Default" -> SelectiveYellow
+        "Legacy" -> SelectiveYellow
         else -> {
-            Persimmon
+            SelectiveYellow
         }
     }
 }
@@ -94,9 +94,9 @@ fun ColorScheme.star2(preferences: Preferences): Color {
         "Rimmy Tim" -> Rimmy_Tim2
         "Fanta" -> Fanta2
         "OFISF" -> OFISF2
-        "Default" -> MedSlateBlue
+        "Legacy" -> MedSlateBlue
         else -> {
-            Persimmon
+            MedSlateBlue
         }
     }
 }
@@ -114,9 +114,9 @@ fun ColorScheme.star1(preferences: Preferences): Color {
         "Rimmy Tim" -> Rimmy_Tim1
         "Fanta" -> Fanta1
         "OFISF" -> OFISF1
-        "Default" -> Tekhelet
+        "Legacy" -> Tekhelet
         else -> {
-            Persimmon
+            Tekhelet
         }
     }
 }

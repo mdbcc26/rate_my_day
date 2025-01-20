@@ -408,7 +408,7 @@ fun RatingLegendItem(color: Color, description: String) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(
-                color = color.copy(alpha = 0.2f),
+                color = color.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(horizontal = 12.dp, vertical = 4.dp)
@@ -421,7 +421,7 @@ fun RatingLegendItem(color: Color, description: String) {
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = description,
-            style = MaterialTheme.typography.bodyMedium.copy(color = color)
+            //style = MaterialTheme.typography.bodyMedium.copy(color = color)
         )
     }
 }

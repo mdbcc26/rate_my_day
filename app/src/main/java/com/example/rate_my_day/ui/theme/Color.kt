@@ -63,9 +63,9 @@ val Rimmy_Tim5 = Color(0xFFFFD60A)
 
 // Fanta Scheme
 val Fanta1 = Color(0xFF0F0B67)
-val Fanta2 = Color(0xFF114DB5)
-val Fanta3 = Color(0xFF889184)
-val Fanta4 = Color(0xFFFFD452)
+val Fanta2 = Color(0xFF6b1076)
+val Fanta3 = Color(0xFFc71585)
+val Fanta4 = Color(0xFFe35148)
 val Fanta5 = Color(0xFFFF8D0A)
 
 // Only Flag I Stand For Scheme
