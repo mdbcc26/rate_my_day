@@ -1,15 +1,21 @@
 package com.example.rate_my_day.ui
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import com.example.rate_my_day.data.db.RateDayEntity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -18,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -325,7 +332,7 @@ fun ThemeScreen(
             Text(
                 modifier = Modifier
                     .padding(4.dp),
-                text = "Light/Dark Mode"
+                text = "Dark Mode"
             )
             Switch(
 
@@ -342,18 +349,29 @@ fun ThemeScreen(
                     .padding(4.dp),
                 text = "Theme"
             )
+            Box(
+                modifier = Modifier,
+            ) {
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { expanded = !expanded }) {
+                onClick = { expanded = !expanded })
+            {
                 Text(text = value)
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = "",
+                )
+
             }
             DropdownMenu(
                 modifier = Modifier
                     .fillMaxWidth(),
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
+                onDismissRequest = { expanded = false },
+
+
+                ) {
                 menuItemData.forEachIndexed { _, option ->
                     DropdownMenuItem(
                         text = { Text(option) },
@@ -366,7 +384,7 @@ fun ThemeScreen(
                     )
                 }
             }
-            RatingLegend(preferences)
+        }
         }
     }
 }
