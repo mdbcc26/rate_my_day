@@ -197,7 +197,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
                 Box(
                     modifier = Modifier
                         .size(8.dp)
-                        .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                        .background(color = MaterialTheme.colorScheme.inverseSurface, shape = CircleShape)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -208,8 +208,8 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
             fontSize = 16.sp,
             color = when {
                 isFutureDay -> Color.Gray
-                stars > 0 -> Color.White
-                else -> Color.Black
+                stars > 0 -> MaterialTheme.colorScheme.onPrimary
+                else -> MaterialTheme.colorScheme.onSurface
             }
         )
 
