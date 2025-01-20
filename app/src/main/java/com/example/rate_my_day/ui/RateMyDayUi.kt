@@ -182,7 +182,7 @@ fun CalendarScreen(
                         )
                     },
                     monthHeader = { month ->
-                        MonthHeader(month = month.yearMonth)
+                        MonthHeader(month = month.yearMonth, state = state)
 
                         DaysOfWeekTitle()
 
