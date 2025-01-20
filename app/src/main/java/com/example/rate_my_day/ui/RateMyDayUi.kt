@@ -237,13 +237,13 @@ fun RateDayFormScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-
     ) {
         RateMyDayHeader(preferences = preferences)
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .imePadding()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)

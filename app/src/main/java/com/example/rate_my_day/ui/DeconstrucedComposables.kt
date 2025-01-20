@@ -240,7 +240,6 @@ fun MonthHeader(
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
         )
-
         Icon(
             imageVector = Icons.Default.KeyboardArrowRight, // Updated Material 3 icon
             contentDescription = "Next Month"
