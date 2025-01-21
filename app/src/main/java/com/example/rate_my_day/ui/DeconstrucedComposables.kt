@@ -55,6 +55,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.rate_my_day.data.Preferences
 import com.example.rate_my_day.data.db.RateDayEntity
 import com.example.rate_my_day.ui.theme.LightColorScheme
+import com.example.rate_my_day.ui.theme.White
 import com.example.rate_my_day.ui.theme.star1
 import com.example.rate_my_day.ui.theme.star2
 import com.example.rate_my_day.ui.theme.star3
@@ -121,8 +122,12 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
         NavigationBarItem(
             selected = currentRoute == Screens.View.name,
             onClick = { navController.navigate(Screens.View.name) },
-            icon = { Icon(imageVector = Icons.Filled.DateRange, contentDescription = "Calendar") },
-            label = { Text("View") },
+            icon = { Icon(
+                imageVector = Icons.Filled.DateRange,
+                contentDescription = "Calendar",
+                tint = Color.White
+            ) },
+            label = { Text("View", color = Color.White)},
             modifier =  Modifier.background(color = color1, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
@@ -141,15 +146,23 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                     launchSingleTop = true
                 }
             },
-            icon = { Icon(imageVector = Icons.Filled.Star, contentDescription = "Star") },
-            label = { Text("Rate") },
+            icon = { Icon(
+                imageVector = Icons.Filled.Star,
+                contentDescription = "Star",
+                tint = Color.White
+            ) },
+            label = { Text("Rate", color = Color.White) },
             modifier =  Modifier.background(color = color2, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
             selected = currentRoute == Screens.Theme.name,
             onClick = { navController.navigate(Screens.Theme.name) },
-            icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = "Theme") },
-            label = { Text("Theme") },
+            icon = { Icon(
+                imageVector = Icons.Filled.Edit,
+                contentDescription = "Theme",
+                tint = Color.White
+            ) },
+            label = { Text("Theme", color = Color.White) },
             modifier =  Modifier.background(color = color3, shape = RoundedCornerShape(12.dp))
 
         )

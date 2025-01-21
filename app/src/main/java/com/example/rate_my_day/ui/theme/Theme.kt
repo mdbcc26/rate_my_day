@@ -16,21 +16,24 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.rate_my_day.data.Preferences
 
 val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
-    onPrimary = Purple40,
-    onSecondary = PurpleGrey40,
-    onTertiary = Pink40,
+    primary = DarkGray,
+    secondary = Black,
+    tertiary = Gray,
+    onPrimary = White,
+    onSecondary = LightGray,
+    onTertiary = White,
+    secondaryContainer = Gray,
+
     )
 
 val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    onPrimary = Purple80,
-    onSecondary = PurpleGrey80,
-    onTertiary = Pink80,
+    primary = DarkGray,
+    secondary = White,
+    tertiary = Black,
+    onPrimary = White,
+    onSecondary = DarkGray,
+    onTertiary = White,
+    secondaryContainer = DarkGray,
 )
 
 @Composable

@@ -2,13 +2,11 @@ package com.example.rate_my_day.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFF9F4F1)
-val PurpleGrey80 = Color(0xFFc0bcbb)
-val Pink80 = Color(0xFF5d5b5b)
-
-val Purple40 = Color(0xFF131416)
-val PurpleGrey40 = Color(0xFF343234)
-val Pink40 = Color(0xFF5d5b5b)
+val White = Color(0xFFF9F4F1)
+val LightGray = Color(0xFFc0bcbb)
+val Gray = Color(0xFF5d5b5b)
+val DarkGray = Color(0xFF343234)
+val Black = Color(0xFF131416)
 
 val LightGreen = Color(0xFF90EE90)
 
@@ -41,11 +39,11 @@ val Blue4 = Color(0xFF90e0ef)
 val Blue5 = Color(0xFFcaf0f8)
 
 // Yellow Scheme
-val Yellow1 = Color(0xFFff8000)
-val Yellow2 = Color(0xFFff9900)
-val Yellow3 = Color(0xFFffb300)
-val Yellow4 = Color(0xFFffcc00)
-val Yellow5 = Color(0xFFfff200)
+val Yellow5 = Color(0xFFFF4F00)
+val Yellow4 = Color(0xFFfe8534)
+val Yellow3 = Color(0xFFfda349)
+val Yellow2 = Color(0xFFfdc05e)
+val Yellow1 = Color(0xFFfad24c)
 
 // Orchard Scheme
 val Orchard1 = Color(0xFFF51400)
