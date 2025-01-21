@@ -391,7 +391,6 @@ fun ThemeScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     onClick = { expanded = !expanded },
-                    colors = ButtonColors(LightColorScheme.star1(preferences), LightColorScheme.star2(preferences), LightColorScheme.star3(preferences), LightColorScheme.star4(preferences)),
                 )
                 {
                     Text(text = value)
@@ -411,8 +410,7 @@ fun ThemeScreen(
 
                     DropdownMenu(
                         modifier = Modifier
-                            .fillMaxWidth(0.5f)
-                            .background(LightColorScheme.star3(preferences)),
+                            .fillMaxWidth(0.5f),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
 
