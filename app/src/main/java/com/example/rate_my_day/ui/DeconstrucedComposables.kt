@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 //import androidx.compose.foundation.lazy.LazyColumn
 //import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -44,6 +45,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 //import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -118,7 +120,7 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
     val color2 = LightColorScheme.star3(preferences).copy(alpha = 0.8f)
     val color3 = LightColorScheme.star5(preferences).copy(alpha = 0.8f)
 
-    NavigationBar {
+    NavigationBar(modifier = Modifier) {
         NavigationBarItem(
             selected = currentRoute == Screens.View.name,
             onClick = { navController.navigate(Screens.View.name) },
@@ -128,7 +130,9 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                 tint = Color.White
             ) },
             label = { Text("View", color = Color.White)},
-            modifier =  Modifier.background(color = color1, shape = RoundedCornerShape(12.dp))
+            modifier =  Modifier
+                .padding(4.dp)
+                .background(color = color1, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
             selected = currentRoute?.startsWith(Screens.Rate.name) == true,
@@ -152,7 +156,9 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                 tint = Color.White
             ) },
             label = { Text("Rate", color = Color.White) },
-            modifier =  Modifier.background(color = color2, shape = RoundedCornerShape(12.dp))
+            modifier =  Modifier
+                .padding(4.dp)
+                .background(color = color2, shape = RoundedCornerShape(12.dp))
         )
         NavigationBarItem(
             selected = currentRoute == Screens.Theme.name,
@@ -163,7 +169,9 @@ fun BottomNavigationBar(navController: NavController, viewModel: RateMyDayViewMo
                 tint = Color.White
             ) },
             label = { Text("Theme", color = Color.White) },
-            modifier =  Modifier.background(color = color3, shape = RoundedCornerShape(12.dp))
+            modifier =  Modifier
+                .padding(4.dp)
+                .background(color = color3, shape = RoundedCornerShape(12.dp))
 
         )
     }
