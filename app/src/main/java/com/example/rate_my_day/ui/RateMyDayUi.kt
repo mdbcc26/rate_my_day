@@ -118,8 +118,10 @@ fun CalendarScreen(
     preferences: Preferences
 ) {
     val currentMonth = remember { YearMonth.now() }
-    val startMonth = remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
-    val endMonth = remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
+    val startMonth =
+        remember { currentMonth.minusMonths(12) }   // Show 12 Months before the current month
+    val endMonth =
+        remember { currentMonth.plusMonths(12) }         // Show 12 Months after the current month
     val daysOfWeek = remember { daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY) }
 
     val state = rememberCalendarState( //state loading
@@ -314,6 +316,7 @@ fun ThemeScreen(
     preferences: Preferences
 ) {
 
+    // TODO: Deconstruct this
 
     val scope = rememberCoroutineScope()
     val value by preferences.getString.collectAsState("")
@@ -380,7 +383,7 @@ fun ThemeScreen(
                         )
                     }
 
-
+// TODO: Figure out the drop down sizing
 
                     DropdownMenu(
                         modifier = Modifier

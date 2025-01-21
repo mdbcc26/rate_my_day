@@ -21,10 +21,10 @@ val DarkColorScheme = darkColorScheme(
     )
 
 val LightColorScheme = lightColorScheme(
-    primary = DarkGray,
+    primary = Gray,
     secondary = White,
     tertiary = Black,
-    onPrimary = White,
+    onPrimary = Black,
     onSecondary = DarkGray,
     onTertiary = White,
     secondaryContainer = Gray,

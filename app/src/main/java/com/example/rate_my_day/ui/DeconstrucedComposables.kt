@@ -218,8 +218,8 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
             fontSize = 16.sp,
             color = when {
                 isFutureDay -> Color.Gray
-                stars > 0 -> MaterialTheme.colorScheme.primary
-                else -> MaterialTheme.colorScheme.primary
+                stars > 0 -> MaterialTheme.colorScheme.onPrimary
+                else -> MaterialTheme.colorScheme.onPrimary
             }
         )
 
