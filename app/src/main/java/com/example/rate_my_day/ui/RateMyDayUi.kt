@@ -389,7 +389,8 @@ fun ThemeScreen(
             ) {
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(4.dp),
                     onClick = { expanded = !expanded },
                 )
                 {
@@ -410,7 +411,7 @@ fun ThemeScreen(
 
                     DropdownMenu(
                         modifier = Modifier
-                            .fillMaxWidth(0.5f),
+                            .fillMaxWidth(),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
 

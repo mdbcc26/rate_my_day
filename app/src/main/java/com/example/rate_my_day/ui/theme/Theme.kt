@@ -19,13 +19,18 @@ val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80,
-
+    onPrimary = Purple40,
+    onSecondary = PurpleGrey40,
+    onTertiary = Pink40,
     )
 
 val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40,
+    onPrimary = Purple80,
+    onSecondary = PurpleGrey80,
+    onTertiary = Pink80,
 )
 
 @Composable
