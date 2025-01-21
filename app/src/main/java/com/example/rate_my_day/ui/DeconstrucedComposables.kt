@@ -36,8 +36,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 //import androidx.compose.runtime.collectAsState
 //import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -58,8 +60,10 @@ import com.example.rate_my_day.ui.theme.star2
 import com.example.rate_my_day.ui.theme.star3
 import com.example.rate_my_day.ui.theme.star4
 import com.example.rate_my_day.ui.theme.star5
+import com.kizitonwose.calendar.compose.CalendarState
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -193,7 +197,7 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
                 Box(
                     modifier = Modifier
                         .size(8.dp)
-                        .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                        .background(color = MaterialTheme.colorScheme.inverseSurface, shape = CircleShape)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -204,8 +208,8 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
             fontSize = 16.sp,
             color = when {
                 isFutureDay -> Color.Gray
-                stars > 0 -> Color.White
-                else -> Color.Black
+                stars > 0 -> MaterialTheme.colorScheme.onPrimary
+                else -> MaterialTheme.colorScheme.onSurface
             }
         )
 
@@ -216,7 +220,10 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
 @Composable
 fun MonthHeader(
     month: YearMonth,
+    state: CalendarState
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -226,7 +233,14 @@ fun MonthHeader(
     ) {
         Icon(
             imageVector = Icons.Default.KeyboardArrowLeft, // Updated Material 3 icon
-            contentDescription = "Previous Month"
+            contentDescription = "Previous Month",
+            modifier = Modifier
+                .clickable {
+                    coroutineScope.launch {
+                        val previousMonth = month.minusMonths(1)
+                        state.scrollToMonth(previousMonth)
+                    }
+                }
         )
         Text(
             text = "${
@@ -240,10 +254,16 @@ fun MonthHeader(
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
         )
-
         Icon(
             imageVector = Icons.Default.KeyboardArrowRight, // Updated Material 3 icon
-            contentDescription = "Next Month"
+            contentDescription = "Next Month",
+            modifier = Modifier
+                .clickable {
+                    coroutineScope.launch {
+                        val nextMonth = month.plusMonths(1)
+                        state.scrollToMonth(nextMonth)
+                    }
+                }
         )
 
     }
