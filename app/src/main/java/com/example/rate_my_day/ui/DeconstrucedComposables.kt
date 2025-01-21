@@ -77,7 +77,7 @@ fun RateMyDayHeader(preferences: Preferences) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp) // Adjust height to your liking
+            .height(60.dp) // Adjust height to your liking
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
@@ -208,8 +208,8 @@ fun Day(day: CalendarDay, stars: Int, onDayClick: () -> Unit, preferences: Prefe
             fontSize = 16.sp,
             color = when {
                 isFutureDay -> Color.Gray
-                stars > 0 -> MaterialTheme.colorScheme.onPrimary
-                else -> MaterialTheme.colorScheme.onSurface
+                stars > 0 -> MaterialTheme.colorScheme.primary
+                else -> MaterialTheme.colorScheme.primary
             }
         )
 
