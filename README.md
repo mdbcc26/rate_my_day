@@ -37,3 +37,13 @@ Database and Preference structure
 Rate My Day uses both Room and DataStore as database infrastructures.
 - Room is used to store all data about each rated day.
 - DataStore is used to check what theme and mode is currently being used.
+
+--------------------------------------------------------------------------------------------------------------
+App Features
+--------------------------------------------------------------------------------------------------------------
+Rate My Day, is as the name suggests, an app where users are able to rate their day. On opening the app users are prompted to rate the current day and are able to leave a comment. Upon saving they are brought to an overview screen that displays the current month and days they have rated are colored and highlighted according to the chosen theme. Clicking on a day allows users to add a rating if it does not have one, edit or delete their rating if it does have one.
+The app can be customized in a multitude of ways in accordance with user preference. Light or dark mode and several themes are available to choose from. Themes range from simple monochromatic gradients to more outlandish options, from among these, every user, including users with partial or total color blindness, should be able to find something they like and can easily parse. 
+
+--------------------------------------------------------------------------------------------------------------
+Reflection
+--------------------------------------------------------------------------------------------------------------
