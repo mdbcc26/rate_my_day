@@ -36,13 +36,23 @@ Database and Preference structure
 --------------------------------------------------------------------------------------------------------------
 Rate My Day uses both Room and DataStore as database infrastructures.
 - Room is used to store all data about each rated day.
+    - Only rated days are stored in the database.
+    - Each entry requires a rating to be added
+    - Comments are optional
 - DataStore is used to check what theme and mode is currently being used.
+    - current_theme is used to store a string gotten from a drop down menu.
+    - current_mode is a simple boolean value from a switch.
 
 --------------------------------------------------------------------------------------------------------------
 App Features
 --------------------------------------------------------------------------------------------------------------
 Rate My Day, is as the name suggests, an app where users are able to rate their day. On opening the app users are prompted to rate the current day and are able to leave a comment. Upon saving they are brought to an overview screen that displays the current month and days they have rated are colored and highlighted according to the chosen theme. Clicking on a day allows users to add a rating if it does not have one, edit or delete their rating if it does have one.
 The app can be customized in a multitude of ways in accordance with user preference. Light or dark mode and several themes are available to choose from. Themes range from simple monochromatic gradients to more outlandish options, from among these, every user, including users with partial or total color blindness, should be able to find something they like and can easily parse. 
+
+--------------------------------------------------------------------------------------------------------------
+Installation
+--------------------------------------------------------------------------------------------------------------
+Simply download the Rate My Day.apk file included in this repo. On android sytems thiss will work with no further problems. If you would like to use it on windows, you will need an emulator of some sorts, bluestacks is a well known and reliable emulator.
 
 --------------------------------------------------------------------------------------------------------------
 Reflection
