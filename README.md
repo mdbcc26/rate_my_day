@@ -20,7 +20,7 @@ The User-testing was done in three rounds, the first two of which were formative
 
 For a more comprehensive list of our results and testing we have included a link to the data below
 
-https://docs.google.com/document/d/1MgyZ4laGOdWBpFdnYIcJVHsbXaCQ_LvEcbHsUfxK9ys/edit?usp=sharing
+[Rate My Day, User Testing](https://docs.google.com/document/d/1MgyZ4laGOdWBpFdnYIcJVHsbXaCQ_LvEcbHsUfxK9ys/edit?usp=sharing)
 
 --------------------------------------------------------------------------------------------------------------
 Development
@@ -47,3 +47,13 @@ The app can be customized in a multitude of ways in accordance with user prefere
 --------------------------------------------------------------------------------------------------------------
 Reflection
 --------------------------------------------------------------------------------------------------------------
+
+Matt Dalton.
+--------------------------------------------------------------------------------------------------------------
+I am glad we chose to work on extending my Mobile Coding project. It relieved the stress of having a functioning app by the end of the first week of CCL, since we already had a baseline. I spent most of my time developing different features and quality of life tweaks. However, when it came to the 6th day of the CCL and with 3ish days left, one has to know when to call it quits and present a version we are happy with as a team. We’ve made a list of to-dos for the future and I’m genuinely considering coming back to this project in my own time. I think Kotlin as a language to program in is still difficult, but I can look through the code, read it and understand it.
+
+
+Michael Zeller
+--------------------------------------------------------------------------------------------------------------
+After the previous two CCL’s and the preceding semester I wanted to take CCL3 a bit lighter, while still doing some weird things. I spent most of it working with Datastores and getting theme switching and preferences to work. For the first few days it was a bit of a struggle as I did not feel very comfortable with kotlin and  android studio but eventually I think I managed to get a bit of a hang of it. Because of this, this CCL felt a lot less stressful and while it was better for my mental health, I did enjoy the previous two a lot more in hindsight because of how ambitious and out there my projects were, even if they were much more stressful. 
+
